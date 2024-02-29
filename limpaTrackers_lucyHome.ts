@@ -5,7 +5,7 @@ function doPost(e) {
   let sheetLogs = ss.getSheetByName("Logs") || ss.insertSheet("Logs", ss.getSheets().length);
   let sheetScriptErrors = ss.getSheetByName("Erros App Script") || ss.insertSheet("Erros App Script", ss.getSheets().length);
 
-  setupSheet(mainSheet, ["ID", "Data", "Nome", "Telefone", "URL", "Titulo", "ID Do Anuncio"]);
+  setupSheet(mainSheet, ["ID", "Data", "Nome", "Telefone", "URL", "Titulo", "ID Do Anuncio", "Transbordo"]);
   setupSheet(cncSheet, ["ID", "Data", "Nome", "Telefone"]);
   setupSheet(sheetLogs, ["Data", "Status"]);
   setupSheet(sheetScriptErrors, ["Data", "Erro"]);
@@ -28,7 +28,8 @@ function doPost(e) {
         dados.telefone || 'null',
         dados.url,
         dados.titulo || 'null',
-        dados.id_Do_Anuncio || 'null'
+        dados.id_Do_Anuncio || 'null',
+        "Atendimento"
       ]);
     } else {
       const nextId = getNextId(cncSheet);
@@ -51,7 +52,7 @@ function doPost(e) {
 function getNextId(sheet) {
   const dataRange = sheet.getDataRange();
   const values = dataRange.getValues();
-  const lastRow = values.length > 1 ? values[values.length - 1] : [0]; // Ajustado para considerar folha vazia
+  const lastRow = values.length > 1 ? values[values.length - 1] : [0];
   const lastId = lastRow[0];
   return Number(lastId) + 1;
 }
